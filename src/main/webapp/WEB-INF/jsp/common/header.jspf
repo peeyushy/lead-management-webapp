@@ -1,0 +1,52 @@
+<%@ taglib prefix="c" uri="/WEB-INF/tld/core.tld" %>
+<%@ taglib prefix="fmt" uri="/WEB-INF/tld/fmt.tld" %>
+<%@ taglib prefix="fn" uri="/WEB-INF/tld/functions.tld" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
+<jsp:useBean id="cons" class="com.fhc.constants.AppConstants" scope="session" />
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>FHC</title>
+<link rel="icon"
+	href="${pageContext.request.contextPath}/img/first-logo.png">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<!-- Bootstrap Core CSS -->
+<link href="${pageContext.request.contextPath}/css/bootstrap.min.css"
+	rel="stylesheet">
+<!-- Custom CSS -->
+<link href="${pageContext.request.contextPath}/css/landing-page.css"
+	rel="stylesheet">
+<!-- Custom Fonts -->
+<link
+	href="${pageContext.request.contextPath}/font-awesome/css/font-awesome.min.css"
+	rel="stylesheet" type="text/css">
+<link
+	href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"
+	rel="stylesheet" type="text/css">
+<link
+	href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css"
+	rel="stylesheet" type="text/css">
+<link
+	href="${pageContext.request.contextPath}/css/bootstrap-datetimepicker.min.css"
+	rel="stylesheet" type="text/css">
+<link
+	href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic"
+	rel="stylesheet" type="text/css">
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css"
+	rel="stylesheet" />
+</head>
+
+<body>
+	<script type="text/javascript"
+		src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath}/js/bootstrap-datetimepicker.min.js"></script>
+	<script type="text/javascript"
+		src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript"
+		src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>	
