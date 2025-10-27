@@ -21,6 +21,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -37,6 +38,9 @@ public class UserService implements UserDetailsService {
 
 	@Autowired
 	private RestTemplate restTemplate;
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	
 	public List<User> getAllUsers() {
 		ResponseEntity<List<User>> clientResponse = restTemplate.exchange(WS_BASE_URL + "/api/users/all",
@@ -89,8 +93,8 @@ public class UserService implements UserDetailsService {
 	}
 
 	public void addUser(User user) {
-
 		HttpEntity<User> request = new HttpEntity<>(user);
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		ResponseEntity<User> response = restTemplate.exchange(WS_BASE_URL + "/api/users/create", HttpMethod.POST,
 				request, User.class);
 

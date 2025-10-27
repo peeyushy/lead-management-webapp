@@ -1,3 +1,4 @@
+<%@page import="com.fhc.constants.AppConstants"%>
 <%@ include file="common/header.jspf"%>
 <%@ include file="common/navigation.jspf"%>
 
@@ -34,8 +35,8 @@
 						<div class="col-lg-6">
 							<div class="form-group">
 								<label for="name">Full Name</label>
-								<form:input class="form-control" id="name" name="name"
-									path="name" type="text" placeholder="FullName"
+								<form:input class="form-control" id="fullname" name="fullname"
+									path="fullname" type="text" placeholder="FullName"
 									required="required" />
 								<p class="note">Please enter full name.</p>
 							</div>
@@ -53,7 +54,7 @@
 					<div class="row">
 						<div class="col-lg-6">
 							<div class="form-group">
-								<label for="contactno">Mobile Number</label>
+								<label for="contactno">Contact Number</label>
 								<form:input class="form-control" id="contactno" name="contactno"
 									path="contactno" type="text" placeholder="07676767676" />
 								<p class="note">User registered mobile number.</p>

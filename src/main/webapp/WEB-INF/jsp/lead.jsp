@@ -2,23 +2,22 @@
 <%@ include file="common/header.jspf"%>
 <%@ include file="common/navigation.jspf"%>
 <script type="text/javascript">
-	$(document).ready(
-			function() {
-				$('#table_quotes').DataTable({
-					"bLengthChange" : false,
-					"bFilter" : false,
-					"order" : [ [ 1, "asc" ] ]
-				});
-				//need to get old dates disable, check why minutes is not set as 00 etc.
-				$("#datetimepicker1").datetimepicker({
-					minView : 1,
-					format : "dd/mm/yyyy hh:ii",
-					autoclose : true,
-					todayBtn : true,
-					todayHighlight : 1,
-					fontAwesome : true
-				});
-			});
+	$(document).ready(function() {
+		$('#table_quotes').DataTable({
+			"bLengthChange" : false,
+			"bFilter" : false,
+			"order" : [ [ 1, "asc" ] ]
+		});
+		//need to get old dates disable, check why minutes is not set as 00 etc.
+		$("#datetimepicker1").datetimepicker({
+			minView : 1,
+			format : "dd/mm/yyyy hh:ii",
+			autoclose : true,
+			todayBtn : true,
+			todayHighlight : 1,
+			fontAwesome : true
+		});
+	});
 </script>
 <!-- Page Content -->
 <div class="content-section-b">

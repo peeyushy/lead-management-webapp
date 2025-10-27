@@ -17,12 +17,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 public class WebSecurityConfig {
 
     @Autowired
-    private UserDetailsService userDetailsService;
-
-    @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+    private UserDetailsService userDetailsService;   
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
