@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
+import com.fhc.dto.LeadDto;
 import com.fhc.dto.QuoteDto;
 import com.fhc.dto.RequirementDto;
 import com.fhc.model.Lead;
@@ -66,16 +67,16 @@ public class LeadService {
 		return clientResponse.getBody();
 	}
 
-	public List<Lead> getAllLeadsByAssignee(List<Long> userIdLst) {
+	public List<Lead> getAllLeadsByAssignedUserId(Long userId) {
 		ResponseEntity<List<Lead>> clientResponse = restTemplate.exchange(
-				WS_BASE_URL + "/api/leads/userin/" + userIdLst, HttpMethod.GET, null,
+				WS_BASE_URL + "/api/leads/userid/" + userId, HttpMethod.GET, null,
 				new ParameterizedTypeReference<List<Lead>>() {
 				});
 		return clientResponse.getBody();
 	}
 
 	public Lead getLeadById(String id) {
-		ResponseEntity<Lead> clientResponse = restTemplate.exchange(WS_BASE_URL + "/api/leads/id/" + id, HttpMethod.GET,
+		ResponseEntity<Lead> clientResponse = restTemplate.exchange(WS_BASE_URL + "/api/leads/" + id, HttpMethod.GET,
 				null, new ParameterizedTypeReference<Lead>() {
 				});
 		return clientResponse.getBody();
@@ -95,7 +96,7 @@ public class LeadService {
 	}
 
 	public void deleteLead(String id) {
-		restTemplate.delete(WS_BASE_URL + "/api/leads/id/" + id);
+		restTemplate.delete(WS_BASE_URL + "/api/leads/" + id);
 		return;
 	}
 
@@ -106,11 +107,10 @@ public class LeadService {
 		return;
 	}
 
-	public void updateLead(String reqid, Lead lead) {
-		lead.setCreatedByUserId(getLeadById(reqid).getCreatedByUserId());
-		HttpEntity<Lead> request = new HttpEntity<>(lead);
-		ResponseEntity<Lead> response = restTemplate.exchange(WS_BASE_URL + "/api/leads/id/" + reqid, HttpMethod.PUT,
-				request, Lead.class);
+	public void updateLead(String id, LeadDto leaddto) {		
+		HttpEntity<LeadDto> request = new HttpEntity<>(leaddto);
+		ResponseEntity<LeadDto> response = restTemplate.exchange(WS_BASE_URL + "/api/leads/" + id, HttpMethod.PUT,
+				request, LeadDto.class);
 		return;
 	}
 

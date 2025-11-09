@@ -1,65 +1,32 @@
-package com.fhc.model;
+package com.fhc.dto;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import com.fhc.constants.AppConstants;
-import com.fhc.constants.AppConstants.LeadSource;
-import com.fhc.constants.AppConstants.LeadStatus;
 
-public class Lead implements Serializable {
-
-	private static final long serialVersionUID = 1L;
-
+public class LeadDto {
 	private Long id;
-
 	private String firstName;
-
 	private String lastName;
-
 	private String email;
-
 	private String contactno;
-
 	private String budget;
-
 	private String project;
-
 	private String requirement;
-
-	private LeadStatus status;
-
-	private LeadSource source;
-
+	private AppConstants.LeadStatus status;
+	private AppConstants.LeadSource source;
 	private Long assignedUserId;
-
 	private LocalDateTime createdAt;
-
 	private LocalDateTime updatedAt;
-
-	// User who created the lead
 	private Long createdByUserId;
-
-	// User who last updated the lead
 	private Long updatedByUserId;
 
-	private List<LeadNote> notes = new ArrayList<>();
-	
-	private String newNote;
+	// Embed details as a nested DTO
+	private LeadDetailsDto leadDetails;
 
-	private LeadDetails leadDetails;
-
-	public Lead() {
-		super();
-	}
-
-	public Lead(AppConstants.LeadStatus status) {
-		super();
-		this.status = status;
-	}
+	// Notes as a flat list of simple DTOs
+	private List<LeadNotesDto> notes;
 
 	/**
 	 * @return the id
@@ -176,28 +143,28 @@ public class Lead implements Serializable {
 	/**
 	 * @return the status
 	 */
-	public LeadStatus getStatus() {
+	public AppConstants.LeadStatus getStatus() {
 		return status;
 	}
 
 	/**
 	 * @param status the status to set
 	 */
-	public void setStatus(LeadStatus status) {
+	public void setStatus(AppConstants.LeadStatus status) {
 		this.status = status;
 	}
 
 	/**
 	 * @return the source
 	 */
-	public LeadSource getSource() {
+	public AppConstants.LeadSource getSource() {
 		return source;
 	}
 
 	/**
 	 * @param source the source to set
 	 */
-	public void setSource(LeadSource source) {
+	public void setSource(AppConstants.LeadSource source) {
 		this.source = source;
 	}
 
@@ -272,110 +239,30 @@ public class Lead implements Serializable {
 	}
 
 	/**
-	 * @return the notes
-	 */
-	public List<LeadNote> getNotes() {
-		return notes;
-	}
-
-	/**
-	 * @param notes the notes to set
-	 */
-	public void setNotes(List<LeadNote> notes) {
-		this.notes = notes;
-	}	
-
-	/**
-	 * @return the newNote
-	 */
-	public String getNewNote() {
-		return newNote;
-	}
-
-	/**
-	 * @param newNote the newNote to set
-	 */
-	public void setNewNote(String newNote) {
-		this.newNote = newNote;
-	}
-
-	/**
 	 * @return the leadDetails
 	 */
-	public LeadDetails getLeadDetails() {
+	public LeadDetailsDto getLeadDetails() {
 		return leadDetails;
 	}
 
 	/**
 	 * @param leadDetails the leadDetails to set
 	 */
-	public void setLeadDetails(LeadDetails leadDetails) {
+	public void setLeadDetails(LeadDetailsDto leadDetails) {
 		this.leadDetails = leadDetails;
 	}
 
 	/**
-	 * @return the serialversionuid
+	 * @return the notes
 	 */
-	public static long getSerialversionuid() {
-		return serialVersionUID;
+	public List<LeadNotesDto> getNotes() {
+		return notes;
 	}
 
 	/**
-	 * @param notes
-	 * @param leadDetails
+	 * @param notes the notes to set
 	 */
-	public Lead(List<LeadNote> notes, com.fhc.model.LeadDetails leadDetails) {
-		super();
-		this.notes = notes;
-		this.leadDetails = leadDetails;
-	}
-
-	/**
-	 * @param notes
-	 */
-	public Lead(List<LeadNote> notes) {
-		super();
+	public void setNotes(List<LeadNotesDto> notes) {
 		this.notes = notes;
 	}
-
-	/**
-	 * @param leadDetails
-	 */
-	public Lead(com.fhc.model.LeadDetails leadDetails) {
-		super();
-		this.leadDetails = leadDetails;
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(assignedUserId, budget, contactno, createdAt, createdByUserId, email, firstName, id,
-				lastName, project, requirement, source, status, updatedAt, updatedByUserId);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Lead other = (Lead) obj;
-		return Objects.equals(assignedUserId, other.assignedUserId) && Objects.equals(budget, other.budget)
-				&& Objects.equals(contactno, other.contactno) && Objects.equals(createdAt, other.createdAt)
-				&& Objects.equals(createdByUserId, other.createdByUserId) && Objects.equals(email, other.email)
-				&& Objects.equals(firstName, other.firstName) && Objects.equals(id, other.id)
-				&& Objects.equals(lastName, other.lastName) && Objects.equals(project, other.project)
-				&& Objects.equals(requirement, other.requirement) && source == other.source && status == other.status
-				&& Objects.equals(updatedAt, other.updatedAt) && Objects.equals(updatedByUserId, other.updatedByUserId);
-	}
-
-	@Override
-	public String toString() {
-		return "Lead [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
-				+ ", contactno=" + contactno + ", budget=" + budget + ", project=" + project + ", requirement="
-				+ requirement + ", status=" + status + ", source=" + source + ", assignedUserId=" + assignedUserId
-				+ ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", createdByUserId=" + createdByUserId
-				+ ", updatedByUserId=" + updatedByUserId + "]";
-	}	
 }

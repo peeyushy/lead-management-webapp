@@ -49,27 +49,27 @@
 							<th>Id</th>
 							<th>Name</th>
 							<th>Email</th>
+							<th>Contact#</th>
 							<th>Status</th>
-							<security:authorize access="hasAnyAuthority('ADMIN')">
+							<security:authorize access="hasAnyAuthority('ADMIN') or hasAnyAuthority('TEAM_LEADER')">
 								<th>Assignee</th>
 								<!-- <th>Delete</th> -->
 							</security:authorize>
-							<!-- <th>Notes</th> -->
-							<th>Contact</th>
+							<!-- <th>Notes</th> -->							
 						</tr>
 					</thead>
 					<tbody>
 						<c:forEach items="${leads}" var="lead">
 							<tr>
 								<td></td>
-								<td>${lead.id}</td>
+								<td><a href="editlead?id=${lead.id}">${lead.id}</a></td>
 								<td>${lead.firstName} ${lead.lastName}</td>
 								<td>${lead.email}</td>
+								<td>${lead.contactno}</td>
 								<td>${lead.status}</td>
-								<security:authorize access="hasAnyAuthority('ADMIN')">
+								<security:authorize access="hasAnyAuthority('ADMIN') or hasAnyAuthority('TEAM_LEADER')">
 									<td>${lead.assignedUserId}</td>
-								</security:authorize>
-								<td>${lead.phone}</td>
+								</security:authorize>								
 							</tr>
 						</c:forEach>
 					</tbody>

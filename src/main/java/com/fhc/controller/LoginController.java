@@ -1,13 +1,11 @@
 package com.fhc.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -24,7 +22,7 @@ public class LoginController {
 	@Autowired
 	LeadService leadService;
 
-	@RequestMapping(value = { "/", "/index" }, method = RequestMethod.GET)
+	@GetMapping({ "/", "/index" })
 	public String root() {
 		return "index";
 	}
@@ -36,20 +34,10 @@ public class LoginController {
 		model.put("name", userService.getLoggedinUserObj().getFullname());
 		if (userService.getLoggedinUserObj().getRole().equals(AppConstants.RoleNames.ADMIN)) {
 			model.put("leads", leadService.getAllLeads());
-		} else if (userService.getLoggedinUserObj().getRole().equals(AppConstants.RoleNames.TEAM_LEADER)) {
-			model.put("leads", leadService.getAllLeadsForTL(userService.getLoggedinUserObj().getId()));
 		} else {
-			//Executive gets only leads assigned to them
-			List<Long> userids=new ArrayList<>(); 
-			userids.add(userService.getLoggedinUserObj().getId());
-			model.put("leads", leadService.getAllLeadsByAssignee(userids));
+			// Executive & TL's get only leads assigned to them handled in api
+			model.put("leads", leadService.getAllLeadsByAssignedUserId(userService.getLoggedinUserObj().getId()));
 		}
-		/*List<String> openAndQuotedstatusLst = new ArrayList<String>();
-		openAndQuotedstatusLst.add(ReqStatus.OPEN.toString());
-		openAndQuotedstatusLst.add(ReqStatus.QUOTED.toString());
-		model.put("openandquotedrequirements", reqService.getAllLeadsByStatusIn(openAndQuotedstatusLst));
-		model.put("reqTypeMap", AppConstants.getReqTypeMap());*/
-		
 		return "welcome";
 	}
 

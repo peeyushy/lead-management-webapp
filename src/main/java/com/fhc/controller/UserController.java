@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -24,13 +24,13 @@ public class UserController {
 	@Autowired
 	UserService userService;
 
-	@RequestMapping(value = "/users", method = RequestMethod.GET)
+	@GetMapping("/users")
 	public String getAllUsers(ModelMap model) {
 		model.put("users", userService.getAllUsers());
 		return "findusers";
 	}
 
-	@RequestMapping(value = "/delete-user", method = RequestMethod.GET)
+	@GetMapping("/delete-user")
 	public String deleteUser(ModelMap model, @RequestParam String cid, @RequestParam String uid,
 			final RedirectAttributes redirectAttributes) {
 		String msg = "User " + userService.getUsersByUserId(uid).getFullname() + " deleted successfully!";
@@ -39,7 +39,7 @@ public class UserController {
 		return "redirect:/edit-client?cid=" + cid;
 	}
 
-	@RequestMapping(value = "/adduser", method = RequestMethod.GET)
+	@GetMapping("/adduser")
 	public String showAddUserPage(ModelMap model, @RequestParam(required = false) String id) {
 		model.put("action", "Add");
 		Map<String, String> roleMap = new LinkedHashMap<String, String>();
@@ -52,7 +52,7 @@ public class UserController {
 		return "user";
 	}
 
-	@RequestMapping(value = "/adduser", method = RequestMethod.POST)
+	@PostMapping("/adduser")
 	public String addUser(ModelMap model, @RequestParam(required = false) String id, // ✅ Optional
 			@Valid User user, BindingResult result, final RedirectAttributes redirectAttributes) {
 		if (result.hasErrors()) {
@@ -73,7 +73,7 @@ public class UserController {
 		}
 	}
 
-	@RequestMapping(value = "/edituser", method = RequestMethod.GET)
+	@GetMapping("/edituser")
 	public String showEditUserPage(ModelMap model, @RequestParam String id) {
 		model.put("action", "Edit");
 		User user = userService.getUsersByUserId(id);
@@ -85,7 +85,7 @@ public class UserController {
 		return "user";
 	}
 
-	@RequestMapping(value = "/edituser", method = RequestMethod.POST)
+	@PostMapping("/edituser")
 	public String updateUser(ModelMap model, @RequestParam String uid, @Valid User user, BindingResult result,
 			final RedirectAttributes redirectAttributes) {
 		model.put("action", "Edit");

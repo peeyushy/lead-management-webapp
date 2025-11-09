@@ -56,7 +56,6 @@
 									id="firstName" path="firstName"
 									onkeyup="return autoCompleteListener(this, event);"
 									placeholder="First Name" required="required" />
-								<form:input type="hidden" id="firstName" path="firstName" />
 								<p class="note">First name.</p>
 							</div>
 						</div>
@@ -67,7 +66,6 @@
 									id="lastName" path="lastName"
 									onkeyup="return autoCompleteListener(this, event);"
 									placeholder="Last Name" required="required" />
-								<form:input type="hidden" id="lastName" path="lastName" />
 								<p class="note">Last Name.</p>
 							</div>
 						</div>
@@ -81,21 +79,66 @@
 									id="email" path="email"
 									onkeyup="return autoCompleteListener(this, event);"
 									placeholder="someone@example.com" required="required" />
-								<form:input type="hidden" id="email" path="email" />
 								<p class="note">Please enter a valid email id.</p>
 							</div>
 						</div>
 						<div class="col-lg-6">
 							<div class="form-group">
-								<label for="phone">Contact No</label>
+								<label for="contactno">Contact#</label>
 								<form:input type="text" class="form-control autocomplete"
-									id="phone" path="phone"
+									id="contactno" path="contactno"
 									onkeyup="return autoCompleteListener(this, event);"
 									placeholder="Contact no" required="required" />
-								<form:input type="hidden" id="phone" path="phone" />
 								<p class="note">Please enter a valid contact number.</p>
 							</div>
 						</div>
+					</div>
+					
+					<div class="row">
+						<div class="col-lg-6">
+							<div class="form-group">
+								<label for="project">Project</label>
+								<form:input type="text" class="form-control autocomplete"
+									id="project" path="project"
+									onkeyup="return autoCompleteListener(this, event);"
+									placeholder="Ace" />
+								<p class="note">Please enter the project name.</p>
+							</div>
+						</div>
+						<div class="col-lg-6">
+							<div class="form-group">
+								<label for="area">Requirement</label>
+								<form:input type="text" class="form-control autocomplete"
+									id="requirement" path="requirement"
+									onkeyup="return autoCompleteListener(this, event);"
+									placeholder="4Bhk" />
+								<p class="note">Please enter the requirement.</p>
+							</div>
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="col-lg-6">
+							<div class="form-group">
+								<label for="budget">Budget</label>
+								<form:input type="text" class="form-control autocomplete"
+									id="budget" path="budget"
+									onkeyup="return autoCompleteListener(this, event);"
+									placeholder="> 1Cr" />
+								<p class="note">Please enter aprox budget.</p>
+							</div>
+						</div>
+						
+						<div class="col-lg-6">
+							<div class="form-group">
+								<label for="source">Source</label>
+								<form:select class="form-control" path="source"
+									required="required">
+									<form:options items="${sourceMap}" />
+								</form:select>
+								<p class="note">Select lead source.</p>
+							</div>
+						</div>						
 					</div>
 
 					<div class="row">
@@ -111,7 +154,7 @@
 								</form:select>
 								<p class="note">Assignee to this lead.</p>
 							</div>
-						</div>
+						</div>						
 						<div class="col-lg-6">
 							<div class="form-group">
 								<label for="status">Status</label>
@@ -122,19 +165,29 @@
 								<p class="note">Select lead status.</p>
 							</div>
 						</div>
-					</div>
+					</div>					
 					<div class="row">
 						<div class="col-lg-12">
 							<div class="form-group">
-								<label for="notes">Notes</label>
-								<form:textarea class="form-control" rows="5" id="notes"
-									path="notes" />
+							    <label for="newNote">Add New Note:</label>
+							    <textarea id="newNote" name="newNote" class="form-control" rows="4" required="required" placeholder="Type your new note here..."></textarea>
 								<p class="note">Please add any additional comments that
-									defines your actions, this will help in understanding your lead
-									better.</p>
+																	defines your actions, this will help in understanding your lead
+																	better.</p>
 							</div>
 						</div>
 					</div>
+					<div class="row">
+						<div class="col-lg-12">
+						    <label>Existing Notes:</label>
+						    <ul>
+						        <c:forEach var="note" items="${lead.notes}">
+						            <li>${note.createdAt} : ${note.note}</li> <!-- Change 'content' to the actual field name in your Note entity -->
+						        </c:forEach>
+						    </ul>
+						</div>
+					</div>
+
 					<div class="row">
 						<div class="col-lg-12">
 							<div class="group">

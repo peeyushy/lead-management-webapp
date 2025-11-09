@@ -2,6 +2,7 @@ package com.fhc.model;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 public class LeadNote implements Serializable {
 
@@ -26,7 +27,7 @@ public class LeadNote implements Serializable {
 
 	public LeadNote() {
 		this.createdAt = LocalDateTime.now();
-	}	
+	}
 
 	public LeadNote(Lead lead, Long createdByUserId, Long updatedByUserId, String note, LocalDateTime createdAt,
 			LocalDateTime updatedAt) {
@@ -144,26 +145,11 @@ public class LeadNote implements Serializable {
 		return serialVersionUID;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#hashCode()
-	 */
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((createdAt == null) ? 0 : createdAt.hashCode());
-		result = prime * result + ((createdByUserId == null) ? 0 : createdByUserId.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((lead == null) ? 0 : lead.hashCode());
-		result = prime * result + ((note == null) ? 0 : note.hashCode());
-		result = prime * result + ((updatedAt == null) ? 0 : updatedAt.hashCode());
-		result = prime * result + ((updatedByUserId == null) ? 0 : updatedByUserId.hashCode());
-		return result;
+		return Objects.hash(createdAt, createdByUserId, id, note, updatedAt, updatedByUserId);
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -173,50 +159,14 @@ public class LeadNote implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		LeadNote other = (LeadNote) obj;
-		if (createdAt == null) {
-			if (other.createdAt != null)
-				return false;
-		} else if (!createdAt.equals(other.createdAt))
-			return false;
-		if (createdByUserId == null) {
-			if (other.createdByUserId != null)
-				return false;
-		} else if (!createdByUserId.equals(other.createdByUserId))
-			return false;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		if (lead == null) {
-			if (other.lead != null)
-				return false;
-		} else if (!lead.equals(other.lead))
-			return false;
-		if (note == null) {
-			if (other.note != null)
-				return false;
-		} else if (!note.equals(other.note))
-			return false;
-		if (updatedAt == null) {
-			if (other.updatedAt != null)
-				return false;
-		} else if (!updatedAt.equals(other.updatedAt))
-			return false;
-		if (updatedByUserId == null) {
-			if (other.updatedByUserId != null)
-				return false;
-		} else if (!updatedByUserId.equals(other.updatedByUserId))
-			return false;
-		return true;
+		return Objects.equals(createdAt, other.createdAt) && Objects.equals(createdByUserId, other.createdByUserId)
+				&& Objects.equals(id, other.id) && Objects.equals(note, other.note)
+				&& Objects.equals(updatedAt, other.updatedAt) && Objects.equals(updatedByUserId, other.updatedByUserId);
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
 	@Override
 	public String toString() {
-		return "LeadNote [id=" + id + ", lead=" + lead + ", createdByUserId=" + createdByUserId + ", updatedByUserId="
-				+ updatedByUserId + ", note=" + note + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + "]";
-	}	
+		return "LeadNote [id=" + id + ", createdByUserId=" + createdByUserId + ", updatedByUserId=" + updatedByUserId
+				+ ", note=" + note + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + "]";
+	}
 }

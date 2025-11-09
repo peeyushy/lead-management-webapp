@@ -39,32 +39,44 @@ public class AppConstants implements Serializable {
 		reqTypeMap.put("Vehicle", "Vehicle");
 		return reqTypeMap;
 	}
-	
+
 	public enum RoleNames {
-	    ADMIN, TEAM_LEADER, EXECUTIVE;
+		ADMIN, TEAM_LEADER, EXECUTIVE;
 
-	    public static Map<String, String> getRoleMap() {
-	        Map<String, String> roleMap = new LinkedHashMap<>();
-	        for (RoleNames role : RoleNames.values()) {
-	            // For display value, format as: "Team Leader" for TEAM_LEADER, etc.
-	            String formatted = role.name().replace("_", " ").toLowerCase();
-	            formatted = formatted.substring(0, 1).toUpperCase() + formatted.substring(1);
-	            roleMap.put(role.name(), formatted);
-	        }
-	        return roleMap;
-	    }
+		public static Map<String, String> getRoleMap() {
+			Map<String, String> roleMap = new LinkedHashMap<>();
+			for (RoleNames role : RoleNames.values()) {
+				// For display value, format as: "Team Leader" for TEAM_LEADER, etc.
+				String formatted = role.name().replace("_", " ").toLowerCase();
+				formatted = formatted.substring(0, 1).toUpperCase() + formatted.substring(1);
+				roleMap.put(role.name(), formatted);
+			}
+			return roleMap;
+		}
 	}
-	
-	public enum LeadStatus {
-	    HOT, WARM, COLD, DEAD;
 
-	    public static Map<String, String> getStatusMap() {
-	        Map<String, String> statusMap = new LinkedHashMap<>();
-	        for (LeadStatus status : LeadStatus.values()) {
-	            statusMap.put(status.name(), status.name());
-	        }
-	        return statusMap;
-	    }
+	public enum LeadStatus {
+		HOT, WARM, COLD, DEAD;
+
+		public static Map<String, String> getStatusMap() {
+			Map<String, String> statusMap = new LinkedHashMap<>();
+			for (LeadStatus status : LeadStatus.values()) {
+				statusMap.put(status.name(), status.name());
+			}
+			return statusMap;
+		}
+	}
+
+	public enum LeadSource {
+		IN_HOUSE, REFERAL, CLIENT, META, GOOGLE, PROPTALS;
+
+		public static Map<String, String> getStatusMap() {
+			Map<String, String> statusMap = new LinkedHashMap<>();
+			for (LeadStatus status : LeadStatus.values()) {
+				statusMap.put(status.name(), status.name());
+			}
+			return statusMap;
+		}
 	}
 
 }
