@@ -122,7 +122,7 @@
 								<td>${lead.contactno}</td>
 								<td>${lead.status}</td>
 								<security:authorize access="hasAnyAuthority('ADMIN') or hasAnyAuthority('TEAM_LEADER')">
-									<td>${lead.assignedUserId}</td>
+									<td>${lead.assignedUserName}</td>
 								</security:authorize>								
 							</tr>
 						</c:forEach>

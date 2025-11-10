@@ -2,11 +2,16 @@ package com.fhc.dto;
 
 import java.time.LocalDateTime;
 
+import com.fhc.converter.LocalDateTimeToStringConverter;
+
 public class LeadNotesDto {
 	private Long id;
 	private String note;
 	private Long created_by_user_id;
 	private LocalDateTime created_at;
+	
+	// converter instance (could be static/shared)
+    private static final LocalDateTimeToStringConverter converter = new LocalDateTimeToStringConverter();
 
 	/**
 	 * @return the id
@@ -63,4 +68,11 @@ public class LeadNotesDto {
 	public void setCreated_at(LocalDateTime created_at) {
 		this.created_at = created_at;
 	}
+	
+	public String getFormattedCreatedAt() {
+        if (created_at == null) {
+            return "";
+        }
+        return converter.convert(created_at);
+    }
 }

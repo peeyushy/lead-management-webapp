@@ -3,6 +3,8 @@ package com.fhc.controller;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,18 +42,34 @@ public class LeadController {
 
 	@Autowired
 	LeadService leadService;
-
+	
 	@GetMapping("/leads")
 	public String getLeads(ModelMap model) {
-		if (userService.getLoggedinUserObj().getRole().equals(AppConstants.RoleNames.ADMIN)) {
-			model.put("leads", leadService.getAllLeads());
-		} else {
-			// Executive and TL's gets leads assigned to them handled in api
-			model.put("leads", leadService.getAllLeadsByAssignedUserId(userService.getLoggedinUserObj().getId()));
-		}
-		return "findleads";
+	    User loggedInUser = userService.getLoggedinUserObj();
+	    List<LeadDto> leadDtoList;
+
+	    if (loggedInUser.getRole().equals(AppConstants.RoleNames.ADMIN)) {
+	        leadDtoList = leadService.getAllLeads();
+	    } else if (loggedInUser.getRole().equals(AppConstants.RoleNames.TEAM_LEADER)) {
+	        leadDtoList = leadService.getAllLeadsByAssignedUserId(loggedInUser.getId());
+	    } else {
+	        // Executives
+	        leadDtoList = leadService.getAllLeadsByAssignedUserId(loggedInUser.getId());
+	    }
+
+	    // Resolve assigned user names for the leads visible to this user
+	    Map<Long, String> userIdNameMap = userService.getAllUsers().stream()
+	        .collect(Collectors.toMap(User::getId, User::getFullname));
+
+	    for (LeadDto leadDto : leadDtoList) {
+	        leadDto.resolveAssignedUserName(userIdNameMap);
+	    }
+
+	    model.put("leads", leadDtoList);
+	    return "findleads";
 	}
 
+	
 	@GetMapping("/deletelead")
 	public String deleteLead(ModelMap model, @RequestParam String leadid, final RedirectAttributes redirectAttributes) {
 		leadService.deleteLead(leadid);
@@ -92,9 +110,10 @@ public class LeadController {
 
 	@GetMapping("/editlead")
 	public String getEditLeadPage(ModelMap model, @RequestParam String id) {
-		Lead lead = leadService.getLeadById(id);
+		// Lead lead = leadService.getLeadById(id);
+		LeadDto leaddto = LeadMapper.toLeadDTO(leadService.getLeadById(id));
 		model.put("usersMap", userService.getAllUsersMap());
-		model.put("lead", lead);
+		model.put("lead", leaddto);
 		model.put("action", "Edit");
 		return "lead";
 	}

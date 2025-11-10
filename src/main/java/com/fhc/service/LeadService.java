@@ -37,9 +37,9 @@ public class LeadService {
 	@Autowired
 	private RestTemplate restTemplate;
 
-	public List<Lead> getAllLeads() {
-		ResponseEntity<List<Lead>> clientResponse = restTemplate.exchange(WS_BASE_URL + "/api/leads/all",
-				HttpMethod.GET, null, new ParameterizedTypeReference<List<Lead>>() {
+	public List<LeadDto> getAllLeads() {
+		ResponseEntity<List<LeadDto>> clientResponse = restTemplate.exchange(WS_BASE_URL + "/api/leads/all",
+				HttpMethod.GET, null, new ParameterizedTypeReference<List<LeadDto>>() {
 				});
 		return clientResponse.getBody();
 	}
@@ -67,10 +67,10 @@ public class LeadService {
 		return clientResponse.getBody();
 	}
 
-	public List<Lead> getAllLeadsByAssignedUserId(Long userId) {
-		ResponseEntity<List<Lead>> clientResponse = restTemplate.exchange(
+	public List<LeadDto> getAllLeadsByAssignedUserId(Long userId) {
+		ResponseEntity<List<LeadDto>> clientResponse = restTemplate.exchange(
 				WS_BASE_URL + "/api/leads/userid/" + userId, HttpMethod.GET, null,
-				new ParameterizedTypeReference<List<Lead>>() {
+				new ParameterizedTypeReference<List<LeadDto>>() {
 				});
 		return clientResponse.getBody();
 	}

@@ -8,7 +8,7 @@ import org.springframework.core.convert.converter.Converter;
 public class LocalDateTimeToStringConverter implements Converter<LocalDateTime,String> {	
 	@Override
 	public String convert(LocalDateTime source) {
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm");
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 		return source.format(formatter);
 	}
 }

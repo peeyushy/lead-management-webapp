@@ -178,14 +178,16 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-lg-12">
-						    <label>Existing Notes:</label>
-						    <ul>
-						        <c:forEach var="note" items="${lead.notes}">
-						            <li>${note.createdAt} : ${note.note}</li> <!-- Change 'content' to the actual field name in your Note entity -->
-						        </c:forEach>
-						    </ul>
-						</div>
+					    <div class="col-lg-12">
+					        <c:if test="${not empty lead.notes}">
+					            <label>Existing Notes:</label>
+					            <ul>
+					                <c:forEach var="note" items="${lead.notes}">
+					                    <li>${note.formattedCreatedAt} : ${note.note}</li>
+					                </c:forEach>
+					            </ul>
+					        </c:if>
+					    </div>
 					</div>
 
 					<div class="row">

@@ -2,6 +2,7 @@ package com.fhc.dto;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 import com.fhc.constants.AppConstants;
 
@@ -17,6 +18,7 @@ public class LeadDto {
 	private AppConstants.LeadStatus status;
 	private AppConstants.LeadSource source;
 	private Long assignedUserId;
+	private String assignedUserName;
 	private LocalDateTime createdAt;
 	private LocalDateTime updatedAt;
 	private Long createdByUserId;
@@ -180,6 +182,20 @@ public class LeadDto {
 	 */
 	public void setAssignedUserId(Long assignedUserId) {
 		this.assignedUserId = assignedUserId;
+	}	
+
+	/**
+	 * @return the assignedUserName
+	 */
+	public String getAssignedUserName() {
+		return assignedUserName;
+	}
+
+	/**
+	 * @param assignedUserName the assignedUserName to set
+	 */
+	public void setAssignedUserName(String assignedUserName) {
+		this.assignedUserName = assignedUserName;
 	}
 
 	/**
@@ -265,4 +281,12 @@ public class LeadDto {
 	public void setNotes(List<LeadNotesDto> notes) {
 		this.notes = notes;
 	}
+	
+	public void resolveAssignedUserName(Map<Long, String> userIdNameMap) {
+        if (assignedUserId != null) {
+            this.assignedUserName = userIdNameMap.getOrDefault(assignedUserId, "Unknown User");
+        } else {
+            this.assignedUserName = "Unassigned";
+        }
+    }
 }
