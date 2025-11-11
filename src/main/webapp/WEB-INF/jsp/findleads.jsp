@@ -46,7 +46,7 @@
 					<thead>
 						<tr>
 							<th></th>
-							<th>Id</th>
+							<th></th>
 							<th>Name</th>
 							<th>Email</th>
 							<th>Contact#</th>
@@ -61,18 +61,23 @@
 					<tbody>
 						<c:forEach items="${leads}" var="lead">
 							<tr>
-								<td></td>
-								<td><a href="editlead?id=${lead.id}">${lead.id}</a></td>
-								<td>${lead.firstName} ${lead.lastName}</td>
-								<td>${lead.email}</td>
-								<td>${lead.contactno}</td>
-								<td>${lead.status}</td>
-								<security:authorize access="hasAnyAuthority('ADMIN') or hasAnyAuthority('TEAM_LEADER')">
-									<td>${lead.assignedUserName}</td>
-								</security:authorize>								
+							    <td></td>
+							    <td>
+							        <a href="editlead?id=${lead.id}">
+							            <i class="fa fa-pencil" aria-hidden="true"></i>
+							        </a>
+							    </td>
+							    <td>${lead.firstName} ${lead.lastName}</td>
+							    <td>${lead.email}</td>
+							    <td>${lead.contactno}</td>
+							    <td>${lead.status}</td>
+							    <security:authorize access="hasAnyAuthority('ADMIN') or hasAnyAuthority('TEAM_LEADER')">
+							        <td>${lead.assignedUserName}</td>
+							    </security:authorize>
 							</tr>
 						</c:forEach>
 					</tbody>
+
 				</table>
 			</div>
 		</div>

@@ -1,12 +1,14 @@
 package com.fhc.util;
 
-import com.fhc.dto.LeadDto;
-import com.fhc.dto.LeadDetailsDto;
-import com.fhc.dto.LeadNotesDto;
-import com.fhc.model.*;
-
-import java.util.List;
+import java.util.Comparator;
 import java.util.stream.Collectors;
+
+import com.fhc.dto.LeadDetailsDto;
+import com.fhc.dto.LeadDto;
+import com.fhc.dto.LeadNotesDto;
+import com.fhc.model.Lead;
+import com.fhc.model.LeadDetails;
+import com.fhc.model.LeadNote;
 
 public class LeadMapper {
 
@@ -36,8 +38,10 @@ public class LeadMapper {
 		}
 
 		if (lead.getNotes() != null) {
-			dto.setNotes(lead.getNotes().stream().map(LeadMapper::toLeadNoteDTO).collect(Collectors.toList()));
+			dto.setNotes(lead.getNotes().stream().map(LeadMapper::toLeadNoteDTO)
+					.sorted(Comparator.comparing(LeadNotesDto::getCreated_at).reversed()).collect(Collectors.toList()));
 		}
+
 		return dto;
 	}
 
