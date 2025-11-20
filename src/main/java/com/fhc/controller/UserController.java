@@ -4,15 +4,22 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.fhc.constants.AppConstants;
+import com.fhc.dto.SubscriptionDto;
 import com.fhc.model.User;
 import com.fhc.service.UserService;
 
@@ -101,4 +108,14 @@ public class UserController {
 			return "redirect:/edituser?id=" + uid;
 		}
 	}
+
+	@PostMapping(value = "/user-subscriptions", consumes = "application/json")
+	@ResponseBody
+	public void receiveSubscription(@RequestBody SubscriptionDto subscriptionDto) {
+		User loggedInUser = userService.getLoggedinUserObj();
+		// Set userId into DTO before forwarding
+		subscriptionDto.setUserId(loggedInUser.getId());
+		userService.addUserSubs(subscriptionDto);
+	}
+
 }

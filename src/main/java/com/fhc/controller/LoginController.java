@@ -53,7 +53,7 @@ public class LoginController {
 	    }
 
 	    model.put("leads", leadDtos);
-	    return "findleads";
+	    return "welcome";
 	}
 
 }

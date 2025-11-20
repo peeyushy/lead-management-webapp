@@ -26,6 +26,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.fhc.constants.AppConstants;
+import com.fhc.dto.SubscriptionDto;
 import com.fhc.model.User;
 
 @Service
@@ -58,10 +59,7 @@ public class UserService implements UserDetailsService {
 	    return usersMap;
 	}
 
-
-
 	public User getUsersByUserId(String id) {
-
 		ResponseEntity<User> clientResponse = restTemplate.exchange(WS_BASE_URL + "/api/users/id/" + id, HttpMethod.GET,
 				null, new ParameterizedTypeReference<User>() {
 				});
@@ -70,20 +68,16 @@ public class UserService implements UserDetailsService {
 	}
 
 	public User getUserByUserName(String username) {
-
 		ResponseEntity<User> clientResponse = restTemplate.exchange(WS_BASE_URL + "/api/users/username/" + username,
 				HttpMethod.GET, null, new ParameterizedTypeReference<User>() {
 				});
-
 		return clientResponse.getBody();
 	}
 
 	public User getAdminOnlyUserByUserName(String username) {
-
 		ResponseEntity<User> clientResponse = restTemplate.exchange(WS_BASE_URL + "/api/users/adminusername/" + username,
 				HttpMethod.GET, null, new ParameterizedTypeReference<User>() {
 				});
-
 		return clientResponse.getBody();
 	}
 
@@ -97,7 +91,6 @@ public class UserService implements UserDetailsService {
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		ResponseEntity<User> response = restTemplate.exchange(WS_BASE_URL + "/api/users/create", HttpMethod.POST,
 				request, User.class);
-
 		return;
 	}
 
@@ -106,7 +99,13 @@ public class UserService implements UserDetailsService {
 		HttpEntity<User> request = new HttpEntity<>(user);
 		ResponseEntity<User> response = restTemplate.exchange(WS_BASE_URL + "/api/users/id/" + id, HttpMethod.PUT,
 				request, User.class);
-
+		return;
+	}
+	
+	public void addUserSubs(SubscriptionDto userSubsDto) {
+		HttpEntity<SubscriptionDto> request = new HttpEntity<>(userSubsDto);		
+		ResponseEntity<SubscriptionDto> response = restTemplate.exchange(WS_BASE_URL + "/api/user-subscriptions", HttpMethod.POST,
+				request, SubscriptionDto.class);
 		return;
 	}
 

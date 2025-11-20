@@ -72,6 +72,8 @@
 			}
 		});
 	});
+	
+	subscribeUser();
 </script>
 <style>
 .dataTables_wrapper .dataTables_length, .dataTables_wrapper .dataTables_filter,
